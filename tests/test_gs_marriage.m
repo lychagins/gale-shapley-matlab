@@ -1,6 +1,10 @@
 % This script tests the Gale-Shapley matching routine
 
 clear;
+
+% Our compiled MEX bianries live here
+addpath('../build');
+
 num_proposers = 500;
 num_reviewers = 1000;
 
@@ -19,7 +23,7 @@ proposer_pref = rand(num_reviewers, num_proposers);
 % Note that the MEX code uses C indexing!
 proposer_pref = uint64(proposer_pref - 1);
 
-act_engagements = gale_shapley(proposer_pref, reviewer_utils);
+act_engagements = gs_marriage(proposer_pref, reviewer_utils);
 
 % Type test
 assert(isa(act_engagements, 'integer'), 'Non-integer engagements vector.');

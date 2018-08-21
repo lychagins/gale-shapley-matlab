@@ -1,6 +1,6 @@
 // This is a MEX interface wrapper for the Gale-Shapley algorithm
 
-#include "gale_shapley_core.h"
+#include "gs_marriage.h"
 #include "mex.h"
 
 void mexFunction(int nlhs, mxArray *plhs[], 
@@ -16,10 +16,10 @@ void mexFunction(int nlhs, mxArray *plhs[],
 	n_proposers = mxGetN(prhs[0]);
 	n_reviewers = mxGetM(prhs[0]);
 
-	plhs[0] = mxCreateNumericMatrix(W, 1, mxUINT64_CLASS, mxREAL);
+	plhs[0] = mxCreateNumericMatrix(n_reviewers, 1, mxUINT64_CLASS, mxREAL);
 	engagements = (uint64_t *)mxGetData(plhs[0]);
 	
-	cpp_galeshapley(proposer_pref, reviewer_utils, 
+	gs_marriage(proposer_pref, reviewer_utils, 
             n_proposers, n_reviewers, engagements);
 	
 }
