@@ -8,17 +8,17 @@
 
 // Marriage market, basic version
 void gs_marriage(uint64_t *proposer_pref, double *reviewer_utils,
-        size_t n_proposers, size_t n_reviewers, 
-        uint64_t *engagements);
+		size_t n_proposers, size_t n_reviewers, 
+		uint64_t *engagements);
 
 // Marriage market. Proposers have unacceptable candidates.
 void gs_marriage(uint64_t *proposer_pref, double *reviewer_utils,
-        size_t n_proposers, size_t n_reviewers, size_t *n_acceptable,
-        uint64_t *engagements);
+		size_t n_proposers, size_t n_reviewers, size_t *n_acceptable,
+		uint64_t *engagements);
 
 // Core algorithm
 void gs_marriage_core(uint64_t *proposer_pref, double *reviewer_utils,
-        size_t n_proposers, size_t n_reviewers, uint64_t **last_proposal,
-        uint64_t *engagements);
+		size_t n_proposers, size_t n_reviewers, uint64_t **last_proposal,
+		uint64_t *engagements);
 
 #endif

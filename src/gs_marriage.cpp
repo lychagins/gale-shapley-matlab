@@ -20,6 +20,6 @@ void mexFunction(int nlhs, mxArray *plhs[],
 	engagements = (uint64_t *)mxGetData(plhs[0]);
 	
 	gs_marriage(proposer_pref, reviewer_utils, 
-            n_proposers, n_reviewers, engagements);
+			n_proposers, n_reviewers, engagements);
 	
 }
