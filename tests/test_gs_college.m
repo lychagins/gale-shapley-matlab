@@ -1,7 +1,7 @@
 % This script tests the college-optimal deferred acceptance routine
 clear;
 
-% Our compiled MEX bianries live here
+% Our compiled MEX binaries live here
 addpath('../build');
 
 %--------------------------------------------------------------------------
@@ -30,9 +30,10 @@ college_pref = uint64(college_pref - 1);
 n_acceptable = uint64(num_students*ones(num_colleges, 1));
 college_type = uint64((1:num_colleges)' - 1);
 quota = ones(num_colleges, 1, 'uint64');
+util_outside = min(student_utils, [], 2) - 1;
 
 act_engagements = gs_college_opt(college_pref, n_acceptable, ...
-    college_type, quota, student_utils);
+    college_type, quota, student_utils, util_outside);
 
 % Type test
 assert(isa(act_engagements, 'integer'), 'Non-integer engagements vector.');

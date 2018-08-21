@@ -17,6 +17,7 @@ using namespace std;
 
 void gs_college_opt(uint64_t *college_pref, 
         uint64_t *college_type, uint64_t *quota, double *student_utils,
+		double *min_util,
         size_t n_colleges, size_t n_students, 
         uint64_t *n_acceptable, uint64_t *placement)
 {
@@ -47,12 +48,14 @@ void gs_college_opt(uint64_t *college_pref,
     // Pointers to keep track of proposals made/to be made.
     uint64_t **next_proposal, **last_proposal;
     uint64_t p, r, poached_from;
+	double *utility, cur_util;
     // Queue of bachelors
     queue<uint64_t> vacant;
     
     seats_vacant = (uint64_t *)malloc(n_colleges*sizeof(uint64_t));
     next_proposal = (uint64_t **)malloc(n_colleges*sizeof(uint64_t *));
     last_proposal = (uint64_t **)malloc(n_colleges*sizeof(uint64_t *));
+	utility = (double *)malloc(n_students*sizeof(double));
     
     for(p=0; p < n_colleges; p++) {
         
@@ -68,6 +71,7 @@ void gs_college_opt(uint64_t *college_pref,
     
     for(r=0; r < n_students; r++) {
         // engagements = n_proposers for reviewers without a preliminary match
+		utility[r] = min_util[r];
         placement[r] = n_colleges;
     }
     
@@ -85,27 +89,23 @@ void gs_college_opt(uint64_t *college_pref,
             // preference list
             r = *next_proposal[p];
             next_proposal[p]++;
-            
-            // Is r still unmatched?
-            if(placement[r]==n_colleges) {
-                // If so, then form a match
-                placement[r] = p;
-                seats_vacant[p]--;
-            } 
-            else if(student_utils[p*n_students + r] > student_utils[placement[r]*n_students + r])
+
+            if(student_utils[p*n_students + r] > utility[r])
             {
-                
-                // r is already matched, let's see if r can be poached
-                // r's previous partner becomes unmatched (`n_reviewers` means unmatched)
-                
-                poached_from = placement[r];
-                if(seats_vacant[poached_from] == 0) {
-                    vacant.push(poached_from);
-                }
-                seats_vacant[poached_from]++;                
+				
+				// If r is already matched, poach r
+                if(placement[r] < n_colleges){
+					
+					poached_from = placement[r];
+					if(seats_vacant[poached_from] == 0) {
+						vacant.push(poached_from);
+					}
+					seats_vacant[poached_from]++;
+				}
                 
                 // p and r form a match
                 placement[r] = p;
+				utility[r] = student_utils[p*n_students + r];
                 seats_vacant[p]--;
                 
             }
@@ -119,4 +119,6 @@ void gs_college_opt(uint64_t *college_pref,
     free(seats_vacant);
     free(next_proposal);
     free(last_proposal);
+	free(utility);
 }
+

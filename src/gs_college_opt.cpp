@@ -6,7 +6,7 @@
 void mexFunction(int nlhs, mxArray *plhs[], 
 	int nrhs, const mxArray *prhs[])
 {
-	double *student_utils;
+	double *student_utils, *min_util;
 	uint64_t *college_pref, *college_type, *quota, *n_acceptable, *placement;
 	size_t n_colleges, n_students;
 	
@@ -17,6 +17,7 @@ void mexFunction(int nlhs, mxArray *plhs[],
 	quota = (uint64_t *)mxGetData(prhs[3]);
 	
 	student_utils = mxGetPr(prhs[4]);
+	min_util = mxGetPr(prhs[5]);
 	
 	n_colleges = mxGetN(prhs[4]);
 	n_students = mxGetM(prhs[4]);
@@ -25,7 +26,7 @@ void mexFunction(int nlhs, mxArray *plhs[],
 	placement = (uint64_t *)mxGetData(plhs[0]);
 	
 	gs_college_opt(college_pref, college_type, quota,
-		student_utils, n_colleges, n_students, n_acceptable, 
+		student_utils, min_util, n_colleges, n_students, n_acceptable, 
 		placement);
 	
 }
