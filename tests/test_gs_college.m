@@ -7,7 +7,7 @@ addpath('../build');
 %--------------------------------------------------------------------------
 % Trivial case: no unacceptable students, each college has one seat, # of
 % ranking categories = # of colleges. Check if we get the same results
-% using the marriage market routine.
+% as in the marriage market algorithm.
 %--------------------------------------------------------------------------
 num_colleges = 500;
 num_students = 1000;
