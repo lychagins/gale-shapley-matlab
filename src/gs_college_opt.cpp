@@ -17,8 +17,8 @@ void mexFunction(int nlhs, mxArray *plhs[],
 	* PRHS[6] (optional) -- student weight
 	*/
 	
-	double *student_utils, *min_util;
-	uint64_t *college_pref, *college_type, *quota, *n_acceptable, *placement, *weight;
+	double *student_utils, *min_util, *utility;
+	uint64_t *college_pref, *college_type, *quota, *n_acceptable, *placement, *weight, *seats_vacant;
 	size_t n_colleges, n_students, m_students, r;
 	
 	college_pref = (uint64_t *)mxGetData(prhs[0]);
@@ -39,16 +39,36 @@ void mexFunction(int nlhs, mxArray *plhs[],
 		
 		// Mass of students = sum of student weights
 		m_students = 0;
-		for (r=0; r<n_students; r++) {
+		for (r=0; r<n_students; r++)
 			m_students += weight[r];
-		}
 		
 		plhs[0] = mxCreateNumericMatrix(m_students, 1, mxUINT64_CLASS, mxREAL);
+		
+		if(nlhs > 1){
+			plhs[1] = mxCreateDoubleMatrix(m_students, 1, mxREAL);
+			utility = mxGetPr(plhs[1]);
+		} else
+			utility = (double *)malloc(m_students*sizeof(double));
+		
+		if(nlhs > 2){
+			plhs[2] = mxCreateNumericMatrix(n_colleges, 1, mxUINT64_CLASS, mxREAL);
+			seats_vacant = (uint64_t *)mxGetData(plhs[2]);
+		} else
+			seats_vacant = (uint64_t *)malloc(n_colleges*sizeof(uint64_t));
+		
 		placement = (uint64_t *)mxGetData(plhs[0]);
 		
 		gs_college_opt_wgt(college_pref, college_type, quota,
 			student_utils, min_util, weight,
-			n_colleges, n_students, m_students, n_acceptable, placement);
+			n_colleges, n_students, m_students, n_acceptable,
+			placement, utility, seats_vacant);
+		
+		// Was the number of vacant seats requested?
+		if(nlhs < 3){
+			free(seats_vacant);
+			if(nlhs < 2)
+				free(utility);
+		}
 		
 	} else {
 		

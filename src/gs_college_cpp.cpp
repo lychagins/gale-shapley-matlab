@@ -1,6 +1,6 @@
 #include <queue>
 #include "gs_college.h"
-#include "mex.h"
+//#include "mex.h"
 
 using namespace std;
 
@@ -125,8 +125,8 @@ void gs_college_opt(uint64_t *college_pref,
 void gs_college_opt_wgt(uint64_t *college_pref, 
 		uint64_t *college_type, uint64_t *quota, double *student_utils,
 		double *min_util, uint64_t *weight,
-		size_t n_colleges, size_t n_students, size_t m_students,
-		uint64_t *n_acceptable, uint64_t *placement)
+		size_t n_colleges, size_t n_students, size_t m_students, uint64_t *n_acceptable, 
+		uint64_t *placement, double *utility, uint64_t *seats_vacant)
 {
 	
 	// n_colleges -- number of proposers (colleges), 
@@ -151,23 +151,19 @@ void gs_college_opt_wgt(uint64_t *college_pref,
 	// placement -- a pointer to a pre-allocated array of n_students elements.
 	// This array is used to return the final list of student placements. 
 	// Row = student, value = matched proposer.
+	// seats_vacant -- number of vacant seats
 	
-	
-	// Number of vacant seats
-	uint64_t *seats_vacant;
 	// Pointers to keep track of proposals made/to be made.
 	uint64_t **next_proposal, **last_proposal, *wgt_counter;
 	uint64_t *last_proposal_p, *next_proposal_p, wgt_counter_p, seats_vacant_p;
 	uint64_t p, r, q, poached_from, *p2q_map;
-	double *utility, min_util_r, u_prop, *cur_ptr, *next_ptr;
+	double min_util_r, u_prop, *cur_ptr, *next_ptr;
 	// Queue of bachelors
 	queue<uint64_t> vacant;
 	
-	seats_vacant = (uint64_t *)malloc(n_colleges*sizeof(uint64_t));
 	next_proposal = (uint64_t **)malloc(n_colleges*sizeof(uint64_t *));
 	last_proposal = (uint64_t **)malloc(n_colleges*sizeof(uint64_t *));
 	wgt_counter = (uint64_t *)malloc(n_colleges*sizeof(uint64_t));
-	utility = (double *)malloc(m_students*sizeof(double));
 	p2q_map = (uint64_t *)malloc(n_students*sizeof(uint64_t));
 	
 	for(p=0; p < n_colleges; p++) {
@@ -269,10 +265,9 @@ void gs_college_opt_wgt(uint64_t *college_pref,
 		// Remove proposer from the queue
 		vacant.pop();
 	}
-	free(seats_vacant);
+	
 	free(next_proposal);
 	free(last_proposal);
-	free(utility);
 	free(wgt_counter);
 	free(p2q_map);
 }
