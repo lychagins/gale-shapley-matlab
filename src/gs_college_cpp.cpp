@@ -1,6 +1,5 @@
 #include <queue>
 #include "gs_college.h"
-//#include "mex.h"
 
 using namespace std;
 

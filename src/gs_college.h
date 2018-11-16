@@ -1,4 +1,5 @@
-#include <stdint.h>
+#include <cstdint>
+#include <cstdlib>
 
 #ifndef gs_college_h
 #define gs_college_h

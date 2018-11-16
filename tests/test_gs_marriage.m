@@ -35,3 +35,4 @@ assert(all(size(act_engagements) == [num_reviewers, 1]), ...
 % Content test
 exp_engagements = csvread('resources/gs_engagements.csv');
 assert(all(act_engagements == exp_engagements));
+disp('Gale-Shapley marriage problem: PASSED');

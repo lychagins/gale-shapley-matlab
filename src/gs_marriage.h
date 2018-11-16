@@ -1,7 +1,7 @@
 // This code is a revised version of the matchingR package authored by 
 // Jan Tilly and Nick Janetos (https://github.com/jtilly/matchingR).
-
-#include <stdint.h>
+#include <cstdint>
+#include <cstdlib>
 
 #ifndef gs_marriage_h
 #define gs_marriage_h
