@@ -34,7 +34,9 @@ The tests can be run manually from the `tests` folder.
 ## Usage ##
 
 `[placement, utility, seats_vacant] = gs_college_opt(col_pref, n_acceptable, col_type, quota, st_util, util_min)`
+
 or
+
 `[...] = gs_college_opt(col_pref, n_acceptable, col_type, quota, st_util, util_min, st_weight)`
 
 ### Arguments ###
@@ -54,7 +56,7 @@ _Example: student type `col_pref(i,j)` is i<sup>th</sup> most preferred student 
 `st_weight`: _Optional argument_. Number of students in each student type; a column vector. If not specified, defaults to the vector of ones. Type: **uint64**.
 
 ### Return values ###
-placement`: Placement outcome for each student. Note that the number of students is equal to the total sum of `st_weight`. Type: **uint64**.
+`placement`: Placement outcome for each student. Note that the number of students is equal to the total sum of `st_weight`. Type: **uint64**.
 
 `utility`: Placement utility for each student. Type: **double**.
 
