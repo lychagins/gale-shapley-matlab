@@ -39,7 +39,7 @@ or
 
 ### Arguments ###
 `col_pref`: College preference rankings. Each column corresponds to a college type. Rows give the ranking order. Each element is a student type index. Type: **uint64**.\
-_Example: student type `col_pref(i,j)` is i^th^ most preferred student type in the ranking of college type j._
+_Example: student type `col_pref(i,j)` is i<sup>th</sup> most preferred student type in the ranking of college type j._
 
 `n_acceptable`: Student types ranked below `n_acceptable(i)` are not eligible to apply to college `i`. Type: **uint64**.
 
