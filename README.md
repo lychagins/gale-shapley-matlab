@@ -38,16 +38,16 @@ or
 `[...] = gs_college_opt(col_pref, n_acceptable, col_type, quota, st_util, util_min, st_weight)`
 
 ### Arguments ###
-`col_pref`: College preference rankings. Each column corresponds to a college type. Rows give the ranking order. Each element is a student type index. Type: **uint64**. 
-_Example: student type `col_pref(i,j)` is i^th^ most preferred student type in the ranking of college type j._
-`n_acceptable`: Student types ranked below `n_acceptable(i)` are not eligible to apply to college `i`. Type: **uint64**.
-`col_type`: College type, by college. Type: **uint64**.
-`quota`: Quota by college. Type: **uint64**.
-`st_util`: Student utility matrix. Rows correspond to colleges, columns correspond to student types. Type: **double**.
-`util_min`: Reservation utility by student type. Student type i will not apply to college j if `st_util(j,i) < util_min(i)`. Type: **double**.
-`st_weight`: _Optional argument_. Number of students in each student type; a column vector. If not specified, defaults to the vector of ones. Type: **uint64**.
+`col_pref`: College preference rankings. Each column corresponds to a college type. Rows give the ranking order. Each element is a student type index. Type: **uint64**.\
+_Example: student type `col_pref(i,j)` is i^th^ most preferred student type in the ranking of college type j._\
+`n_acceptable`: Student types ranked below `n_acceptable(i)` are not eligible to apply to college `i`. Type: **uint64**.\
+`col_type`: College type, by college. Type: **uint64**.\
+`quota`: Quota by college. Type: **uint64**.\
+`st_util`: Student utility matrix. Rows correspond to colleges, columns correspond to student types. Type: **double**.\
+`util_min`: Reservation utility by student type. Student type i will not apply to college j if `st_util(j,i) < util_min(i)`. Type: **double**.\
+`st_weight`: _Optional argument_. Number of students in each student type; a column vector. If not specified, defaults to the vector of ones. Type: **uint64**.\
 
 ### Return values ###
-`placement`: Placement outcome for each student. Note that the number of students is equal to the total sum of `st_weight`. Type: **uint64**.
-`utility`: Placement utility for each student. Type: **double**.
-`seats_vacant`: The number of college seats left vacant, by college. Type: **uint64**.
+`placement`: Placement outcome for each student. Note that the number of students is equal to the total sum of `st_weight`. Type: **uint64**.\
+`utility`: Placement utility for each student. Type: **double**.\
+`seats_vacant`: The number of college seats left vacant, by college. Type: **uint64**.\
