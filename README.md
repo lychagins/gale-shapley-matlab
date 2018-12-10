@@ -1,6 +1,6 @@
 # Gale-Shapley college-optimal algorithm for large markets (Matlab and C++)
 
-When applied to large markets, Gale-Shapley college optimal algorithm is constrained by memory bottlenecks. This implementation is designed to reduce memory requirements in settings where many colleges share the same preference ranking over students and many students share identical preferences over colleges.
+When applied to large markets, Gale-Shapley college-optimal algorithm is constrained by memory bottlenecks. This implementation is designed to reduce memory requirements in settings where many colleges share the same preference ranking over students and many students share identical preferences over colleges.
 
 ## Typical use case ##
 Consider a college market with 5,000 college programs and 1,000,000 students. The deferred acceptance algorithm would require two inputs at the minimum: a matrix of college preferences over students (5 million of 4-byte integers) and a matrix of student utilities over colleges (same number of single-precision floats). Taken together, this requires approximately 37 Gigabytes of memory. This rules out most consumer-grade laptops and desktops, adds to memory access overhead and slows down parallel simulations of college placements even on high-end workstations and some multi-CPU servers.
